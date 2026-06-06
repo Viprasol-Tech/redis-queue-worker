@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "redis-queue-worker"
+version = "0.1.0"
+description = "Job queue worker — enqueue/dequeue, retries, and dead-letter, with a pluggable backend — by Viprasol Tech."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Viprasol Tech Private Limited", email = "support@viprasol.com" }]
+keywords = [
+  "job-queue",
+  "task-queue",
+  "redis",
+  "worker",
+  "python",
+  "background-jobs",
+  "queue",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: System :: Distributed Computing",
+  "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+dependencies = ["pydantic>=2.6", "typer>=0.12", "rich>=13.7"]
+
+[project.optional-dependencies]
+dev = ["ruff>=0.4", "mypy>=1.10", "pytest>=8.0", "pytest-cov>=5.0"]
+
+[project.scripts]
+redis-queue-worker = "redis_queue_worker.cli:app"
+
+[project.urls]
+Homepage = "https://viprasol.com"
+Repository = "https://github.com/Viprasol-Tech/redis-queue-worker"
+Issues = "https://github.com/Viprasol-Tech/redis-queue-worker/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/redis_queue_worker"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF", "C4"]
+ignore = ["B008", "B027", "UP042"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
