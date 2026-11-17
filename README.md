@@ -64,8 +64,8 @@ backend.push(Job(name="email", payload={"to": "ada@viprasol.com"}))
 backend.push(Job(name="flaky", max_retries=2))  # no handler -> dead-letter
 
 stats = worker.run()
-print(stats)            # WorkerStats(processed=1, retried=0, dead_lettered=1)
-print(backend.dead)     # the dead-lettered "flaky" job
+print(stats)  # WorkerStats(processed=1, retried=0, dead_lettered=1)
+print(backend.dead)  # the dead-lettered "flaky" job
 ```
 
 A real Redis backend can be added by implementing the `QueueBackend` protocol with a `redis` client; the bundled `InMemoryBackend`
